@@ -295,5 +295,52 @@ function createHeart(){
 
 }
 
-/* Har 2 second me ek item girega */
+/*/* ❤️ LOVE COUNTDOWN ❤️ */
+
+function updateLoveTimer(){
+
+const startDate = new Date("2025-12-28T00:00:00");
+
+const now = new Date();
+
+const diff = now - startDate;
+
+if(diff < 0){
+
+document.getElementById("countdown").innerHTML =
+"Waiting For Our Day ❤️";
+
+return;
+
+}
+
+const days = Math.floor(diff / (1000*60*60*24));
+
+const hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+
+const minutes = Math.floor((diff%(1000*60*60))/(1000*60));
+
+const seconds = Math.floor((diff%(1000*60))/1000);
+
+const timer = document.getElementById("countdown");
+
+if(timer){
+
+timer.innerHTML =
+
+`${days} Days ❤️<br>
+
+${hours} Hours 💖<br>
+
+${minutes} Minutes 🌹<br>
+
+${seconds} Seconds ✨`;
+
+}
+
+}
+
+setInterval(updateLoveTimer,1000);
+
+updateLoveTimer(); Har 2 second me ek item girega */
 
