@@ -224,7 +224,7 @@ document.body.style.overflow = "hidden";
 
 document.getElementById("loveMusic").play(); 
 
-heartInterval = setInterval(createHeart,2000);    
+heartInterval = setInterval(createHeart, 1200);  
 
 }else{
 
@@ -243,6 +243,8 @@ closeLove.onclick = () => {
 lovePage.style.display = "none";
 
 document.body.style.overflow = "auto";
+
+clearInterval(heartInterval);  
 
 const music = document.getElementById("loveMusic");
 music.pause();
@@ -285,7 +287,7 @@ function createHeart(){
     item.style.opacity =
         (0.6 + Math.random()*0.4);
 
-    document.body.appendChild(item);
+    document.getElementById("lovePage").appendChild(item);
 
     setTimeout(()=>{
         item.remove();
