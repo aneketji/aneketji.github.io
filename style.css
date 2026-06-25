@@ -547,3 +547,20 @@ animation:fall linear forwards;
 filter:drop-shadow(0 0 10px #fff);
 
 }
+@keyframes fall{
+
+0%{
+    transform:translateY(-100px) rotate(0deg);
+    opacity:0;
+}
+
+10%{
+    opacity:1;
+}
+
+100%{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:1;
+}
+
+}
