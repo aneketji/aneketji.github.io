@@ -221,6 +221,8 @@ lovePage.style.display = "block";
 
 document.body.style.overflow = "hidden";
 
+document.getElementById("loveMusic").play();    
+
 }else{
 
 wrongPassword.innerHTML = "❌ Wrong Password";
