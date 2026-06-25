@@ -1,3 +1,4 @@
+let heartInterval = null;
 // LOADER
 
 window.addEventListener("load", () => {
@@ -221,7 +222,9 @@ lovePage.style.display = "block";
 
 document.body.style.overflow = "hidden";
 
-document.getElementById("loveMusic").play();    
+document.getElementById("loveMusic").play(); 
+
+heartInterval = setInterval(createHeart,2000);    
 
 }else{
 
@@ -292,4 +295,3 @@ function createHeart(){
 
 /* Har 2 second me ek item girega */
 
-setInterval(createHeart,2000);
