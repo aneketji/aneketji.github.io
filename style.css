@@ -293,3 +293,144 @@ footer{
         grid-template-columns:1fr;
     }
 }
+     /* ========================= /
+/ SECRET LOVE PAGE CSS /
+/ ========================= */
+
+.secret-box{
+text-align:center;
+margin:40px 0;
+}
+
+.secret-btn{
+background:#ff2e63;
+color:#fff;
+border:none;
+padding:15px 35px;
+font-size:18px;
+border-radius:40px;
+cursor:pointer;
+transition:.4s;
+box-shadow:0 0 20px #ff2e63;
+}
+
+.secret-btn:hover{
+transform:scale(1.08);
+box-shadow:0 0 40px #ff2e63;
+}
+
+.popup{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+.popup-content{
+width:340px;
+background:#111;
+border:2px solid #ff2e63;
+border-radius:20px;
+padding:30px;
+text-align:center;
+box-shadow:0 0 30px #ff2e63;
+}
+
+.popup-content h2{
+color:#ff5f8f;
+margin-bottom:15px;
+}
+
+.popup-content input{
+width:100%;
+padding:12px;
+margin:20px 0;
+border:none;
+outline:none;
+border-radius:10px;
+}
+
+.popup-content button{
+width:100%;
+padding:12px;
+background:#ff2e63;
+color:#fff;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+#wrongPassword{
+color:red;
+margin-top:10px;
+}
+
+#lovePage{
+display:none;
+position:fixed;
+inset:0;
+overflow:auto;
+background:linear-gradient(135deg,#120018,#300030,#5b0036);
+z-index:999999;
+padding:50px 20px;
+}
+
+.love-container{
+max-width:900px;
+margin:auto;
+text-align:center;
+}
+
+.love-container h1{
+color:#ff80b3;
+font-size:45px;
+margin-bottom:15px;
+}
+
+.love-container h3{
+color:#fff;
+margin-bottom:30px;
+}
+
+.love-photo{
+width:250px;
+height:250px;
+object-fit:cover;
+border-radius:20px;
+margin:15px;
+border:5px solid white;
+box-shadow:0 0 25px #ff2e63;
+transition:.4s;
+}
+
+.love-photo:hover{
+transform:scale(1.05);
+}
+
+#loveLetter{
+margin-top:40px;
+padding:30px;
+background:rgba(255,255,255,.08);
+border-radius:20px;
+line-height:1.9;
+font-size:20px;
+color:white;
+}
+
+#closeLove{
+margin-top:40px;
+padding:15px 35px;
+border:none;
+border-radius:40px;
+background:#ff2e63;
+color:white;
+cursor:pointer;
+box-shadow:0 0 20px #ff2e63;
+}
+
+#closeLove:hover{
+transform:scale(1.08);
+}
