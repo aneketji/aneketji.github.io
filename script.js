@@ -185,3 +185,70 @@ document.addEventListener("mousemove", (e) => {
     glow.style.top = e.pageY + "px";
 
 });
+
+    /* ===========================
+   SECRET LOVE PAGE
+=========================== */
+
+const openSecret = document.getElementById("openSecret");
+const passwordPopup = document.getElementById("passwordPopup");
+const checkPassword = document.getElementById("checkPassword");
+const lovePage = document.getElementById("lovePage");
+const closeLove = document.getElementById("closeLove");
+const wrongPassword = document.getElementById("wrongPassword");
+
+if(openSecret){
+
+openSecret.onclick = () => {
+
+passwordPopup.style.display = "flex";
+
+};
+
+}
+
+if(checkPassword){
+
+checkPassword.onclick = () => {
+
+const pass = document.getElementById("secretPassword").value;
+
+if(pass === "veeranshu"){
+
+passwordPopup.style.display = "none";
+
+lovePage.style.display = "block";
+
+document.body.style.overflow = "hidden";
+
+}else{
+
+wrongPassword.innerHTML = "❌ Wrong Password";
+
+}
+
+};
+
+}
+
+if(closeLove){
+
+closeLove.onclick = () => {
+
+lovePage.style.display = "none";
+
+document.body.style.overflow = "auto";
+
+};
+
+}
+
+window.onclick = function(e){
+
+if(e.target == passwordPopup){
+
+passwordPopup.style.display = "none";
+
+}
+
+};
