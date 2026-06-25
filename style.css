@@ -530,3 +530,20 @@ text-shadow:0 0 15px #ff2e63,
 0 0 45px #ff2e63;
 
 }
+.falling-heart{
+
+position:fixed;
+
+top:-60px;
+
+pointer-events:none;
+
+z-index:99999;
+
+user-select:none;
+
+animation:fall linear forwards;
+
+filter:drop-shadow(0 0 10px #fff);
+
+}
