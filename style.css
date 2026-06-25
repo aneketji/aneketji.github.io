@@ -566,3 +566,52 @@ filter:drop-shadow(0 0 10px #fff);
 }
 
 }
+/* LOVE COUNTDOWN */
+
+.love-timer{
+
+margin:25px auto;
+
+padding:20px;
+
+width:320px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+
+box-shadow:0 0 20px #ff2e63;
+
+text-align:center;
+
+}
+
+.love-timer h2{
+
+color:#ff6ea8;
+
+margin-bottom:10px;
+
+}
+
+.love-timer p{
+
+color:white;
+
+margin-bottom:15px;
+
+}
+
+#countdown{
+
+font-size:22px;
+
+font-weight:bold;
+
+color:#fff;
+
+line-height:1.8;
+
+}
