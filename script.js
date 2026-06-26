@@ -343,4 +343,39 @@ ${seconds} Seconds ✨`;
 setInterval(updateLoveTimer,1000);
 
 updateLoveTimer();
+/* FINAL SURPRISE */
+
+const finalBtn=document.getElementById("finalSurprise");
+
+const surprise=document.getElementById("surprisePage");
+
+const closeSurprise=document.getElementById("closeSurprise");
+
+const finalVideo=document.getElementById("finalVideo");
+
+if(finalBtn){
+
+finalBtn.onclick=()=>{
+
+surprise.style.display="block";
+
+finalVideo.play();
+
+};
+
+}
+
+if(closeSurprise){
+
+closeSurprise.onclick=()=>{
+
+surprise.style.display="none";
+
+finalVideo.pause();
+
+finalVideo.currentTime=0;
+
+};
+
+}
 
