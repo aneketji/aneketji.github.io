@@ -12,6 +12,12 @@ function loadVoices() {
 
     const voices = speechSynthesis.getVoices();
 
+    console.log("Available Voices:");
+
+voices.forEach((voice, index) => {
+    console.log(index + " : " + voice.name + " | " + voice.lang);
+});
+
     // English male voice ko prefer karo
     jarvisVoice = voices.find(v =>
         v.lang.startsWith("en") &&
