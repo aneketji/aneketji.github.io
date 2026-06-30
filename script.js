@@ -1,3 +1,5 @@
+// LOADER
+
 window.addEventListener("load", () => {
 
     setTimeout(() => {
@@ -183,4 +185,3 @@ document.addEventListener("mousemove", (e) => {
     glow.style.top = e.pageY + "px";
 
 });
-
