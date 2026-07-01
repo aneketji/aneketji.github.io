@@ -293,3 +293,38 @@ footer{
         grid-template-columns:1fr;
     }
 }
+.tracko-btn{
+
+    display:inline-block;
+
+    margin-top:20px;
+
+    margin-left:15px;
+
+    padding:12px 25px;
+
+    background:#FFD700;
+
+    color:#111;
+
+    text-decoration:none;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    box-shadow:0 0 15px #FFD700;
+
+    transition:.3s;
+
+}
+
+.tracko-btn:hover{
+
+    transform:translateY(-3px);
+
+    background:#FFC107;
+
+    box-shadow:0 0 30px #FFD700;
+
+}
