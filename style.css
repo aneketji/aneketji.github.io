@@ -328,3 +328,16 @@ footer{
     box-shadow:0 0 30px #FFD700;
 
 }
+/* CONTACT LINKS */
+
+.card a{
+    color:#00c3ff;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.card a:hover{
+    color:white;
+    text-shadow:0 0 10px #00c3ff;
+}
