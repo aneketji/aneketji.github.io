@@ -67,8 +67,8 @@ async function askJarvis(message){
 
     if(
         text.includes("who is aneket") ||
-        text.includes("aneket kaun hai")
-        text.includes("aneket")
+        text.includes("aneket kaun hai") ||
+        text.includes("aneket") ||
         text.includes("aniket")
     ){
 
