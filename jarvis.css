@@ -84,9 +84,31 @@ color:#fff;
 
 font-size:18px;
 
-margin-right:6px;
-
 cursor:pointer;
+
+margin-left:6px;
+
+margin-right:8px;
+
+flex-shrink:0;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+box-shadow:0 0 18px rgba(255,152,0,.9);
+
+transition:.3s;
+
+}
+
+#sendBtn:hover{
+
+transform:scale(1.08);
+
+box-shadow:0 0 25px rgba(255,152,0,1);
 
 }
 
@@ -107,6 +129,30 @@ color:#fff;
 font-size:20px;
 
 cursor:pointer;
+
+margin-left:8px;
+
+margin-right:8px;
+
+flex-shrink:0;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+box-shadow:0 0 18px rgba(255,152,0,.9);
+
+transition:.3s;
+
+}
+
+#micBtn:hover{
+
+transform:scale(1.08);
+
+box-shadow:0 0 25px rgba(255,152,0,1);
 
 }
 
