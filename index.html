@@ -376,9 +376,11 @@
 
 <link rel="stylesheet" href="jarvis/jarvis.css">
 
-<!-- JARVIS -->
+<!-- =======================
+     JARVIS AI
+======================== -->
 
-    <div id="chatBox"></div>
+<div id="chatBox"></div>
 
 <div class="jarvis-bar">
 
@@ -386,32 +388,19 @@
         type="text"
         id="jarvisInput"
         placeholder="Ask Jarvis..."
+        autocomplete="off"
     >
 
-    <button id="sendBtn">➤</button>
-
-    <button id="micBtn">🎤</button>
-
-</div>
-
-
-<div class="jarvis-bar">
-
-    <input
-        type="text"
-        id="jarvisInput"
-        placeholder="Ask me anytime..."
-    >
-
-    <button id="sendBtn">
+    <button id="sendBtn" title="Send">
         ➤
     </button>
 
-    <button id="micBtn">
+    <button id="micBtn" title="Voice">
         🎤
     </button>
 
 </div>
+
 <link rel="stylesheet" href="jarvis.css">
 
 <script src="voice.js"></script>
