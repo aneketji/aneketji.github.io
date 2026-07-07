@@ -1,127 +1,131 @@
-========
-   CHAT POPUP
-======================= */
-
-#chatBox{
-
-    position:fixed;
-
-    bottom:95px;
-
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:720px;
-
-    max-width:92%;
-
-    max-height:420px;
-
-    overflow-y:auto;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:12px;
-
-    padding:10px;
-
-    z-index:999998;
-
-}
-
-.bot-message{
-
-align-self:flex-start;
-
-background:rgba(40,40,40,.95);
-
-color:white;
-
-padding:8px 12px;
-
-border-radius:14px;
-
-max-width:80%;
-
-font-size:14px;
-
-line-height:1.4;
-
-}
-
-.user-message{
-
-align-self:flex-end;
-
-background:#ff9800;
-
-color:white;
-
-padding:8px 12px;
-
-border-radius:14px;
-
-max-width:80%;
-
-font-size:14px;
-
-line-height:1.4;
-
-}
-
-@keyframes fade{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(12px);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0);
-
-    }
-
-}
-
-/* =======================
-   MOBILE
-======================= */
-
-@media(max-width:768px){
-
-#chatBox{
-
-width:92%;
-
-max-width:300px;
-
-bottom:75px;
-
-max-height:150px;
-
-}
-
-}
-
 /* ===========================
    JARVIS CHAT BAR
 =========================== */
+
+.jarvis-bar{
+
+position:fixed;
+
+left:50%;
+
+bottom:18px;
+
+transform:translateX(-50%);
+
+width:90%;
+
+max-width:420px;
+
+height:56px;
+
+display:flex;
+
+align-items:center;
+
+padding:0 8px;
+
+background:rgba(20,20,20,.92);
+
+backdrop-filter:blur(20px);
+
+border-radius:35px;
+
+border:1px solid rgba(255,193,7,.35);
+
+box-shadow:
+0 0 10px rgba(255,193,7,.35),
+0 0 30px rgba(255,193,7,.15);
+
+z-index:999999;
+
+animation:jarvisGlow 2s ease-in-out infinite;
+
+}
+
+.jarvis-bar input{
+
+flex:1;
+
+height:100%;
+
+border:none;
+
+outline:none;
+
+background:transparent;
+
+color:#fff;
+
+font-size:15px;
+
+padding-left:15px;
+
+}
+
+.jarvis-bar input::placeholder{
+
+color:#bdbdbd;
+
+}
+
+#sendBtn{
+
+width:42px;
+
+height:42px;
+
+border:none;
+
+border-radius:50%;
+
+background:#ff9800;
+
+color:#fff;
+
+font-size:18px;
+
+margin-right:6px;
+
+cursor:pointer;
+
+}
+
+#micBtn{
+
+width:42px;
+
+height:42px;
+
+border:none;
+
+border-radius:50%;
+
+background:#ff9800;
+
+color:#fff;
+
+font-size:20px;
+
+cursor:pointer;
+
+}
+
+#sendBtn:hover,
+#micBtn:hover{
+
+transform:scale(1.08);
+
+box-shadow:0 0 15px rgba(255,152,0,.8);
+
+}
+
 #chatBox{
 
 position:fixed;
 
 left:50%;
 
-bottom:80px;
+bottom:82px;
 
 transform:translateX(-50%);
 
@@ -145,88 +149,92 @@ z-index:999998;
 
 }
 
-.jarvis-bar input{
+.bot-message{
 
-flex:1;
+align-self:flex-start;
 
-background:transparent;
+background:#2a2a2a;
 
-border:none;
+color:#fff;
 
-outline:none;
+padding:8px 12px;
 
-padding-left:18px;
+border-radius:14px;
 
-color:white;
+font-size:14px;
 
-font-size:17px;
-
-}
-
-.jarvis-bar input::placeholder{
-
-color:#bdbdbd;
+max-width:80%;
 
 }
 
-#sendBtn{
+.user-message{
 
-width:46px;
-
-height:46px;
-
-border:none;
-
-border-radius:50%;
+align-self:flex-end;
 
 background:#ff9800;
 
-color:white;
+color:#fff;
 
-font-size:20px;
+padding:8px 12px;
 
-margin-right:8px;
+border-radius:14px;
 
-cursor:pointer;
+font-size:14px;
 
-box-shadow:0 0 18px rgba(255,152,0,.9);
-
-transition:.3s;
+max-width:80%;
 
 }
 
-#sendBtn:hover{
+@keyframes jarvisGlow{
 
-transform:scale(1.08);
+0%{
 
-}
-
-#micBtn{
-
-width:46px;
-
-height:46px;
-
-border:none;
-
-border-radius:50%;
-
-background:#ff9800;
-
-color:white;
-
-font-size:22px;
-
-cursor:pointer;
-
-box-shadow:0 0 18px rgba(255,152,0,.9);
-
-transition:.3s;
+box-shadow:
+0 0 10px rgba(255,193,7,.35),
+0 0 30px rgba(255,193,7,.15);
 
 }
 
-#micBtn:hover{
+50%{
 
-transform:scale(1.08);
+box-shadow:
+0 0 20px rgba(255,193,7,.8),
+0 0 45px rgba(255,193,7,.4);
+
+}
+
+100%{
+
+box-shadow:
+0 0 10px rgba(255,193,7,.35),
+0 0 30px rgba(255,193,7,.15);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.jarvis-bar{
+
+width:92%;
+
+max-width:360px;
+
+bottom:15px;
+
+}
+
+#chatBox{
+
+width:92%;
+
+max-width:300px;
+
+bottom:75px;
+
+max-height:150px;
+
+}
 
 }
