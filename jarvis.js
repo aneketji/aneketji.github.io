@@ -2,8 +2,9 @@
 // JARVIS
 // ==========================
 
-const orb = document.getElementById("jarvisOrb");
 const micBtn = document.getElementById("micBtn");
+const sendBtn = document.getElementById("sendBtn");
+const input = document.getElementById("jarvisInput");
 
 // Welcome after page is visible
 window.addEventListener("load", () => {
@@ -22,22 +23,7 @@ window.addEventListener("load", () => {
 
 });
 
-// Orb click
-orb.addEventListener("click", () => {
 
-    orb.classList.add("active");
-
-    if (typeof welcomeVoice === "function") {
-        welcomeVoice();
-    }
-
-    setTimeout(() => {
-
-        orb.classList.remove("active");
-
-    }, 1000);
-
-});
 
 // Mic click
 micBtn.addEventListener("click", () => {
@@ -53,5 +39,27 @@ micBtn.addEventListener("click", () => {
         micBtn.style.transform = "scale(1)";
 
     }, 300);
+
+});
+
+sendBtn.addEventListener("click", () => {
+
+    const msg = input.value.trim();
+
+    if (msg === "") return;
+
+    askJarvis(msg);
+
+    input.value = "";
+
+});
+
+input.addEventListener("keydown", (e) => {
+
+    if (e.key === "Enter") {
+
+        sendBtn.click();
+
+    }
 
 });
