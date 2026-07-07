@@ -28,13 +28,27 @@ async function askJarvis(message){
     ){
 
         const reply =
-        "My name is Jarvis. I am your personal AI assistant.";
+        "My name is Jarvis.";
 
         speak(reply);
 
         return;
     }
+    
+    if(
+        text.includes("hi") ||
+        text.includes("hello") ||
+        text.includes("hii")
+        ){
 
+        const reply =
+            "hello dear friend.";
+
+        speak(reply);
+
+        return;
+    }
+    
     if(
         text.includes("who made you") ||
         text.includes("who created you") ||
@@ -44,7 +58,7 @@ async function askJarvis(message){
     ){
 
         const reply =
-        "I was developed by Aneket Baliyan.";
+        "I was developed by Aniket .";
 
         speak(reply);
 
@@ -54,6 +68,8 @@ async function askJarvis(message){
     if(
         text.includes("who is aneket") ||
         text.includes("aneket kaun hai")
+        text.includes("aneket")
+        text.includes("aniket")
     ){
 
         const reply =
@@ -252,7 +268,7 @@ async function askJarvis(message){
 
                     parts:[{
 
-                        text: `
+text: `
 You are Jarvis.
 
 You are the personal AI assistant of Aneket Baliyan.
@@ -342,7 +358,7 @@ ${message}
         console.log(error);
 
         const reply =
-        "Sorry, I am having trouble connecting right now.";
+        "Sorry, I can only tell you about the portfolio.";
 
         if(typeof addBotMessage === "function"){
 
