@@ -449,3 +449,144 @@ font-size:22px;
 }
 
 }
+/* ===========================
+   JARVIS CHAT BAR
+=========================== */
+
+.jarvis-bar{
+
+position:fixed;
+
+left:50%;
+
+bottom:18px;
+
+transform:translateX(-50%);
+
+width:92%;
+
+max-width:520px;
+
+height:60px;
+
+display:flex;
+
+align-items:center;
+
+padding:0 10px;
+
+border-radius:40px;
+
+background:rgba(25,25,25,.88);
+
+backdrop-filter:blur(20px);
+
+border:1px solid rgba(255,193,7,.35);
+
+box-shadow:
+0 0 15px rgba(255,193,7,.6),
+0 0 35px rgba(255,193,7,.25);
+
+z-index:99999;
+
+animation:jarvisGlow 2.5s infinite;
+
+}
+
+.jarvis-bar input{
+
+flex:1;
+
+background:transparent;
+
+border:none;
+
+outline:none;
+
+padding-left:18px;
+
+color:white;
+
+font-size:17px;
+
+}
+
+.jarvis-bar input::placeholder{
+
+color:#bdbdbd;
+
+}
+
+#sendBtn{
+
+width:42px;
+
+height:42px;
+
+border:none;
+
+border-radius:50%;
+
+background:#ff9800;
+
+color:white;
+
+font-size:18px;
+
+margin-right:8px;
+
+cursor:pointer;
+
+box-shadow:0 0 15px rgba(255,152,0,.8);
+
+}
+
+#micBtn{
+
+width:42px;
+
+height:42px;
+
+border:none;
+
+border-radius:50%;
+
+background:#ff9800;
+
+color:white;
+
+font-size:20px;
+
+cursor:pointer;
+
+box-shadow:0 0 15px rgba(255,152,0,.8);
+
+}
+
+@keyframes jarvisGlow{
+
+0%{
+
+box-shadow:
+0 0 15px rgba(255,193,7,.5),
+0 0 30px rgba(255,193,7,.2);
+
+}
+
+50%{
+
+box-shadow:
+0 0 25px rgba(255,193,7,1),
+0 0 50px rgba(255,193,7,.45);
+
+}
+
+100%{
+
+box-shadow:
+0 0 15px rgba(255,193,7,.5),
+0 0 30px rgba(255,193,7,.2);
+
+}
+
+}
