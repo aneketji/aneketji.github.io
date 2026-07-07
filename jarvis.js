@@ -1,12 +1,12 @@
 // ==========================
-// JARVIS
+// JARVIS V3
 // ==========================
 
 const micBtn = document.getElementById("micBtn");
 const sendBtn = document.getElementById("sendBtn");
 const input = document.getElementById("jarvisInput");
 
-// Welcome after page is visible
+// Welcome
 window.addEventListener("load", () => {
 
     setTimeout(() => {
@@ -19,44 +19,61 @@ window.addEventListener("load", () => {
             welcomeVoice();
         }
 
-    }, 3500);
+    }, 3000);
 
 });
 
+// ------------------
+// MIC
+// ------------------
 
+micBtn.onclick = () => {
 
-// Mic click
-micBtn.addEventListener("click", () => {
-
-    micBtn.style.transform = "scale(1.15)";
+    micBtn.style.transform = "scale(1.12)";
 
     if (typeof startListening === "function") {
+
         startListening();
+
     }
 
     setTimeout(() => {
 
         micBtn.style.transform = "scale(1)";
 
-    }, 300);
+    },300);
 
-});
+};
 
-sendBtn.addEventListener("click", () => {
+// ------------------
+// SEND
+// ------------------
+
+sendBtn.onclick = () => {
 
     const msg = input.value.trim();
 
-    if (msg === "") return;
+    if(!msg) return;
 
-    askJarvis(msg);
+    if(typeof askJarvis==="function"){
 
-    input.value = "";
+        askJarvis(msg);
 
-});
+    }
 
-input.addEventListener("keydown", (e) => {
+    input.value="";
 
-    if (e.key === "Enter") {
+};
+
+// ------------------
+// ENTER
+// ------------------
+
+input.addEventListener("keypress",(e)=>{
+
+    if(e.key==="Enter"){
+
+        e.preventDefault();
 
         sendBtn.click();
 
