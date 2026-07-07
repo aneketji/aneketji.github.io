@@ -39,10 +39,10 @@ async function askJarvis(message){
         text.includes("hi") ||
         text.includes("hello") ||
         text.includes("hii")
-        ){
+    ){
 
         const reply =
-            "hello dear friend.";
+        "hello dear friend.";
 
         speak(reply);
 
