@@ -2,7 +2,7 @@
 // JARVIS AI V4 - PART 1
 // =====================================
 
-const GEMINI_API_KEY = "AIzaSyDuOBz49OSv13cucQ6ppI3HJtaLXfynVN";
+const GEMINI_API_KEY = "api key";
 
 const GEMINI_URL =
 `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
