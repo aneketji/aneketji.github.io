@@ -2,18 +2,55 @@
 // JARVIS AI
 // =====================================
 
-const GEMINI_API_KEY="AIzaSyDuOBz49OSv13cucQ6ppI3HJtaLXfynVN";
+const GEMINI_API_KEY = "AIzaSyDuOBz49OSv13cucQ6ppI3HJtaLXfynVN";
 
-const GEMINI_URL=
+const GEMINI_URL =
 `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 async function askJarvis(message){
 
-    console.log("AI RECEIVED:",message);
+    console.log("AI RECEIVED:", message);
 
-    const text=message.toLowerCase().trim();
+    const text = message.toLowerCase().trim();
 
-    // ---------- WEBSITE COMMANDS ----------
+    // ==========================
+    // PERSONAL QUESTIONS
+    // ==========================
+
+    if(
+        text.includes("your name") ||
+        text.includes("who are you") ||
+        text.includes("tumhara naam") ||
+        text.includes("aapka naam") ||
+        text.includes("tum kon ho") ||
+        text.includes("aap kon ho")
+    ){
+
+        const reply = "My name is Jarvis. I am your personal AI assistant.";
+
+        speak(reply);
+
+        return;
+    }
+
+    if(
+        text.includes("who made you") ||
+        text.includes("who created you") ||
+        text.includes("who developed you") ||
+        text.includes("kisne banaya") ||
+        text.includes("tumhe kisne banaya")
+    ){
+
+        const reply = "I was developed by Aneket Baliyan.";
+
+        speak(reply);
+
+        return;
+    }
+
+    // ==========================
+    // WEBSITE COMMANDS
+    // ==========================
 
     if(text.includes("project")){
 
@@ -88,11 +125,13 @@ async function askJarvis(message){
 
     }
 
-    // ---------- GEMINI ----------
+    // ==========================
+    // GEMINI AI
+    // ==========================
 
     try{
 
-        const response=await fetch(GEMINI_URL,{
+        const response = await fetch(GEMINI_URL,{
 
             method:"POST",
 
@@ -106,7 +145,26 @@ async function askJarvis(message){
 
                     parts:[{
 
-                        text:message
+                        text:`
+You are Jarvis.
+
+You are a personal AI assistant developed by Aneket Baliyan.
+
+Never say you are Google Gemini.
+
+Never say you are a language model.
+
+If someone asks your name, say:
+"My name is Jarvis."
+
+If someone asks who made you, say:
+"I was developed by Aneket Baliyan."
+
+Keep answers natural, friendly and short.
+
+User Question:
+${message}
+`
 
                     }]
 
@@ -116,11 +174,19 @@ async function askJarvis(message){
 
         });
 
-        const data=await response.json();
+        const data = await response.json();
 
-        const reply=data.candidates[0].content.parts[0].text;
+        if(data.candidates){
 
-        speak(reply);
+            const reply = data.candidates[0].content.parts[0].text;
+
+            speak(reply);
+
+        }else{
+
+            speak("Sorry, I couldn't understand that.");
+
+        }
 
     }
 
@@ -128,7 +194,7 @@ async function askJarvis(message){
 
         console.log(e);
 
-        speak("Sorry, jarvish is unavailable.");
+        speak("Sorry, Jarvis is unavailable right now.");
 
     }
 
