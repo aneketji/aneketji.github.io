@@ -260,16 +260,27 @@ footer{
 
 /* MOBILE */
 
-@media(max-width:768px){
+@media (max-width:768px){
 
     nav{
-        flex-direction:column;
+        flex-direction:row;
+        justify-content:space-between;
+        align-items:center;
+        padding:15px 20px;
+    }
+
+    .logo{
+        font-size:30px;
     }
 
     nav ul{
-        flex-direction:column;
-        margin-top:15px;
-        text-align:center;
+        display:flex;
+        flex-direction:row;
+        gap:12px;
+        flex-wrap:wrap;
+        justify-content:center;
+        margin-top:0;
+        font-size:14px;
     }
 
     .hero h1{
@@ -292,7 +303,9 @@ footer{
     .grid{
         grid-template-columns:1fr;
     }
+
 }
+
 .tracko-btn{
 
     display:inline-block;
