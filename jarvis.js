@@ -80,3 +80,26 @@ input.addEventListener("keypress",(e)=>{
     }
 
 });
+
+const menuToggle = document.getElementById("menuToggle");
+const navMenu = document.getElementById("navMenu");
+
+if(menuToggle){
+
+    menuToggle.onclick = () => {
+
+        navMenu.classList.toggle("active");
+
+    };
+
+}
+
+document.querySelectorAll("#navMenu a").forEach(link=>{
+
+    link.onclick=()=>{
+
+        navMenu.classList.remove("active");
+
+    };
+
+});
