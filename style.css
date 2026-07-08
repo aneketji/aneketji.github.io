@@ -354,3 +354,44 @@ footer{
     color:white;
     text-shadow:0 0 10px #00c3ff;
 }
+
+/* MOBILE MENU */
+
+.menu-toggle{
+    display:none;
+    font-size:32px;
+    cursor:pointer;
+    color:#00c3ff;
+}
+
+@media(max-width:768px){
+
+    nav{
+        padding:15px 20px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+
+    .menu-toggle{
+        display:block;
+    }
+
+    nav ul{
+        position:absolute;
+        top:70px;
+        left:0;
+        width:100%;
+        background:#081020;
+        display:none;
+        flex-direction:column;
+        padding:20px 0;
+        gap:18px;
+        text-align:center;
+        box-shadow:0 10px 20px rgba(0,0,0,.4);
+    }
+
+    nav ul.active{
+        display:flex;
+    }
+}
