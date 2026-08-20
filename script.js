@@ -187,11 +187,11 @@ document.addEventListener("mousemove", (e) => {
 });
 /* =========================================
    ANEKET 13 MONTH COUNTDOWN
-   AUTO START
+   FIXED DATE - DOES NOT RESET
 ========================================= */
 
 const countdownTarget =
-    new Date("2027-09-20T00:00:00").getTime();
+    new Date("2027-09-20T00:00:00+05:30").getTime();
 
 
 const countdownScreen =
@@ -205,7 +205,7 @@ let countdownInterval;
 
 
 /* =========================================
-   COUNTDOWN CALCULATION
+   EXACT CALENDAR COUNTDOWN
 ========================================= */
 
 function getCountdownDifference(){
@@ -216,10 +216,11 @@ function getCountdownDifference(){
         new Date(countdownTarget);
 
 
-    if(
-        now.getTime() >=
-        target.getTime()
-    ){
+    /* =====================================
+       COUNTDOWN FINISHED
+    ===================================== */
+
+    if(now.getTime() >= target.getTime()){
 
         return {
 
@@ -236,6 +237,10 @@ function getCountdownDifference(){
     }
 
 
+    /* =====================================
+       MONTHS
+    ===================================== */
+
     let months =
 
         (target.getFullYear()
@@ -249,6 +254,11 @@ function getCountdownDifference(){
         now.getMonth());
 
 
+    /*
+       Temporary date after adding
+       calculated months
+    */
+
     let monthDate =
         new Date(now);
 
@@ -257,6 +267,11 @@ function getCountdownDifference(){
         monthDate.getMonth() + months
     );
 
+
+    /*
+       Agar monthDate target se aage
+       chala gaya to 1 month kam
+    */
 
     if(monthDate > target){
 
@@ -271,6 +286,10 @@ function getCountdownDifference(){
 
     }
 
+
+    /* =====================================
+       REMAINING TIME
+    ===================================== */
 
     const remaining =
 
@@ -448,8 +467,17 @@ function updateCountdown(){
 
 function startCountdown(){
 
+    /*
+       Sabse pehle current remaining
+       time show karo
+    */
+
     updateCountdown();
 
+
+    /*
+       Har 1 second update
+    */
 
     countdownInterval =
 
@@ -463,13 +491,12 @@ function startCountdown(){
 
 
     /* =====================================
-       SOUND
+       BACKGROUND SOUND
     ===================================== */
 
     if(countdownSound){
 
         countdownSound.volume = 0.8;
-
 
         countdownSound.loop = true;
 
@@ -485,6 +512,11 @@ function startCountdown(){
             })
 
             .catch(error => {
+
+                /*
+                   Mobile browser autoplay
+                   ko block kar sakta hai.
+                */
 
                 console.log(
                     "Browser blocked autoplay:",
