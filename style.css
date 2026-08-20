@@ -660,41 +660,60 @@ footer{
 
 #startCountdownBtn{
 
-    margin-top:28px;
+/* =========================
+   START BUTTON
+========================= */
 
-    padding:12px 35px;
+#startCountdownBtn{
+
+    display:block;
+
+    margin:30px auto 0 auto;
+
+    width:150px;
+    height:48px;
 
     border:none;
-
-    border-radius:30px;
+    border-radius:8px;
 
     background:#087cff;
 
-    color:white;
+    color:#ffffff;
 
-    font-size:16px;
-
-    font-weight:600;
+    font-size:15px;
+    font-weight:700;
 
     letter-spacing:2px;
+
+    text-align:center;
 
     cursor:pointer;
 
     box-shadow:
-        0 0 12px #087cff,
-        0 0 30px rgba(8,124,255,.6);
+        0 0 12px rgba(8,124,255,.8),
+        0 0 30px rgba(8,124,255,.45);
 
-    transition:.3s;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 
 }
 
+
 #startCountdownBtn:hover{
 
-    transform:scale(1.08);
+    transform:scale(1.06);
 
     box-shadow:
-        0 0 20px #087cff,
-        0 0 45px rgba(8,124,255,.8);
+        0 0 20px rgba(8,124,255,1),
+        0 0 45px rgba(8,124,255,.65);
+
+}
+
+
+#startCountdownBtn:active{
+
+    transform:scale(.96);
 
 }
 
