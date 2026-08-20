@@ -187,16 +187,8 @@ document.addEventListener("mousemove", (e) => {
 });
 /* =========================================
    ANEKET 13 MONTH COUNTDOWN
+   AUTO START
 ========================================= */
-
-
-/*
-   TODAY:
-   20 August 2026
-
-   13 MONTHS LATER:
-   20 September 2027
-*/
 
 const countdownTarget =
     new Date("2027-09-20T00:00:00").getTime();
@@ -205,27 +197,29 @@ const countdownTarget =
 const countdownScreen =
     document.getElementById("countdownScreen");
 
-const startButton =
-    document.getElementById("startCountdown");
-
 const countdownSound =
     document.getElementById("countdownSound");
 
 
-let countdownStarted = false;
+let countdownInterval;
 
 
 /* =========================================
-   CALCULATE CALENDAR DIFFERENCE
+   COUNTDOWN CALCULATION
 ========================================= */
 
 function getCountdownDifference(){
 
     const now = new Date();
 
-    const target = new Date(countdownTarget);
+    const target =
+        new Date(countdownTarget);
 
-    if(now.getTime() >= target.getTime()){
+
+    if(
+        now.getTime() >=
+        target.getTime()
+    ){
 
         return {
 
@@ -234,6 +228,7 @@ function getCountdownDifference(){
             hours:0,
             minutes:0,
             seconds:0,
+
             finished:true
 
         };
@@ -242,13 +237,21 @@ function getCountdownDifference(){
 
 
     let months =
-        (target.getFullYear() - now.getFullYear()) * 12
+
+        (target.getFullYear()
+        -
+        now.getFullYear()) * 12
+
         +
-        (target.getMonth() - now.getMonth());
+
+        (target.getMonth()
+        -
+        now.getMonth());
 
 
     let monthDate =
         new Date(now);
+
 
     monthDate.setMonth(
         monthDate.getMonth() + months
@@ -270,43 +273,67 @@ function getCountdownDifference(){
 
 
     const remaining =
-        target.getTime() - monthDate.getTime();
+
+        target.getTime()
+        -
+        monthDate.getTime();
 
 
     const days =
+
         Math.floor(
+
             remaining /
             (1000 * 60 * 60 * 24)
+
         );
 
 
     const hours =
+
         Math.floor(
+
             (
                 remaining %
                 (1000 * 60 * 60 * 24)
-            ) /
+            )
+
+            /
+
             (1000 * 60 * 60)
+
         );
 
 
     const minutes =
+
         Math.floor(
+
             (
                 remaining %
                 (1000 * 60 * 60)
-            ) /
+            )
+
+            /
+
             (1000 * 60)
+
         );
 
 
     const seconds =
+
         Math.floor(
+
             (
                 remaining %
                 (1000 * 60)
-            ) /
+            )
+
+            /
+
             1000
+
         );
 
 
@@ -317,6 +344,7 @@ function getCountdownDifference(){
         hours,
         minutes,
         seconds,
+
         finished:false
 
     };
@@ -334,41 +362,55 @@ function updateCountdown(){
         getCountdownDifference();
 
 
-    document.getElementById("countMonths")
-        .textContent =
+    document.getElementById(
+        "countMonths"
+    ).textContent =
+
         String(time.months)
         .padStart(2,"0");
 
 
-    document.getElementById("countDays")
-        .textContent =
+    document.getElementById(
+        "countDays"
+    ).textContent =
+
         String(time.days)
         .padStart(2,"0");
 
 
-    document.getElementById("countHours")
-        .textContent =
+    document.getElementById(
+        "countHours"
+    ).textContent =
+
         String(time.hours)
         .padStart(2,"0");
 
 
-    document.getElementById("countMinutes")
-        .textContent =
+    document.getElementById(
+        "countMinutes"
+    ).textContent =
+
         String(time.minutes)
         .padStart(2,"0");
 
 
-    document.getElementById("countSeconds")
-        .textContent =
+    document.getElementById(
+        "countSeconds"
+    ).textContent =
+
         String(time.seconds)
         .padStart(2,"0");
 
 
-    /* COUNTDOWN FINISHED */
+    /* =====================================
+       TIMER FINISHED
+    ===================================== */
 
     if(time.finished){
 
-        clearInterval(countdownInterval);
+        clearInterval(
+            countdownInterval
+        );
 
 
         if(countdownSound){
@@ -380,7 +422,12 @@ function updateCountdown(){
         }
 
 
-        countdownScreen.style.opacity = "0";
+        countdownScreen.style.transition =
+            "opacity 1.5s ease";
+
+
+        countdownScreen.style.opacity =
+            "0";
 
 
         setTimeout(() => {
@@ -388,7 +435,7 @@ function updateCountdown(){
             countdownScreen.style.display =
                 "none";
 
-        },1000);
+        },1500);
 
     }
 
@@ -396,42 +443,55 @@ function updateCountdown(){
 
 
 /* =========================================
-   SOUND
+   START AUTOMATICALLY
 ========================================= */
 
-function playCountdownSound(){
+function startCountdown(){
 
-    if(!countdownStarted){
-
-        return;
-
-    }
+    updateCountdown();
 
 
-    if(!countdownSound){
+    countdownInterval =
 
-        return;
+        setInterval(
 
-    }
+            updateCountdown,
 
+            1000
 
-    countdownSound.currentTime = 0;
-
-
-    const playPromise =
-        countdownSound.play();
+        );
 
 
-    if(playPromise !== undefined){
+    /* =====================================
+       SOUND
+    ===================================== */
 
-        playPromise.catch(error => {
+    if(countdownSound){
 
-            console.log(
-                "Countdown sound blocked:",
-                error
-            );
+        countdownSound.volume = 0.8;
 
-        });
+
+        countdownSound.loop = true;
+
+
+        countdownSound.play()
+
+            .then(() => {
+
+                console.log(
+                    "Countdown sound started."
+                );
+
+            })
+
+            .catch(error => {
+
+                console.log(
+                    "Browser blocked autoplay:",
+                    error
+                );
+
+            });
 
     }
 
@@ -439,99 +499,14 @@ function playCountdownSound(){
 
 
 /* =========================================
-   START COUNTDOWN
+   PAGE LOAD
 ========================================= */
 
-startButton.addEventListener(
-    "click",
-    async function(){
+window.addEventListener(
+    "load",
+    () => {
 
-        countdownStarted = true;
-
-
-        /*
-           Browser ko audio permission
-           dene ke liye pehle user click.
-        */
-
-        try{
-
-            countdownSound.currentTime = 0;
-
-            await countdownSound.play();
-
-            countdownSound.pause();
-
-            countdownSound.currentTime = 0;
-
-        }
-
-        catch(error){
-
-            console.log(
-                "Audio permission:",
-                error
-            );
-
-        }
-
-
-        startButton.textContent =
-            "COUNTDOWN STARTED";
-
-
-        startButton.disabled = true;
-
-
-        startButton.style.opacity =
-            "0.6";
-
-
-        updateCountdown();
-
-
-        /*
-           Har second timer update
-        */
-
-        countdownInterval =
-            setInterval(
-
-                updateCountdown,
-
-                1000
-
-            );
-
-
-        /*
-           Har second sound
-        */
-
-        soundInterval =
-            setInterval(
-
-                playCountdownSound,
-
-                1000
-
-            );
+        startCountdown();
 
     }
 );
-
-
-/* =========================================
-   INITIAL TIMER
-========================================= */
-
-updateCountdown();
-
-
-/*
-   Timer variables
-*/
-
-let countdownInterval;
-
-let soundInterval;
