@@ -191,7 +191,7 @@ document.addEventListener("mousemove", (e) => {
 ========================================= */
 
 const countdownTarget =
-    new Date("2027-09-20T00:00:00+05:30").getTime();
+    new Date("2027-10-20T00:00:00+05:30").getTime();
 
 
 const countdownScreen =
