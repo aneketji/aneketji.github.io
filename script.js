@@ -187,10 +187,12 @@ document.addEventListener("mousemove", (e) => {
 });
 /* =========================================
    ANEKET 13 MONTH COUNTDOWN
+   AUTO START
 ========================================= */
 
 const countdownTarget =
     new Date("2027-09-20T00:00:00").getTime();
+
 
 const countdownScreen =
     document.getElementById("countdownScreen");
@@ -203,139 +205,308 @@ let countdownInterval;
 
 
 /* =========================================
-   UPDATE COUNTDOWN
+   COUNTDOWN CALCULATION
 ========================================= */
 
-function updateCountdown(){
+function getCountdownDifference(){
 
-    const now =
-        new Date().getTime();
+    const now = new Date();
 
-    const distance =
-        countdownTarget - now;
+    const target =
+        new Date(countdownTarget);
 
 
-    if(distance <= 0){
+    if(
+        now.getTime() >=
+        target.getTime()
+    ){
 
-        document.getElementById("countMonths")
-            .textContent = "00";
+        return {
 
-        document.getElementById("countDays")
-            .textContent = "00";
+            months:0,
+            days:0,
+            hours:0,
+            minutes:0,
+            seconds:0,
 
-        document.getElementById("countHours")
-            .textContent = "00";
+            finished:true
 
-        document.getElementById("countMinutes")
-            .textContent = "00";
+        };
 
-        document.getElementById("countSeconds")
-            .textContent = "00";
-
-        clearInterval(countdownInterval);
-
-        countdownScreen.style.display =
-            "none";
-
-        return;
     }
 
 
-    const totalSeconds =
-        Math.floor(distance / 1000);
+    let months =
+
+        (target.getFullYear()
+        -
+        now.getFullYear()) * 12
+
+        +
+
+        (target.getMonth()
+        -
+        now.getMonth());
 
 
-    const seconds =
-        totalSeconds % 60;
+    let monthDate =
+        new Date(now);
 
 
-    const totalMinutes =
-        Math.floor(totalSeconds / 60);
+    monthDate.setMonth(
+        monthDate.getMonth() + months
+    );
 
 
-    const minutes =
-        totalMinutes % 60;
+    if(monthDate > target){
+
+        months--;
+
+        monthDate =
+            new Date(now);
+
+        monthDate.setMonth(
+            monthDate.getMonth() + months
+        );
+
+    }
 
 
-    const totalHours =
-        Math.floor(totalMinutes / 60);
+    const remaining =
 
-
-    const hours =
-        totalHours % 24;
-
-
-    const totalDays =
-        Math.floor(totalHours / 24);
-
-
-    const months =
-        Math.floor(totalDays / 30);
+        target.getTime()
+        -
+        monthDate.getTime();
 
 
     const days =
-        totalDays % 30;
+
+        Math.floor(
+
+            remaining /
+            (1000 * 60 * 60 * 24)
+
+        );
 
 
-    document.getElementById("countMonths")
-        .textContent =
-        String(months).padStart(2,"0");
+    const hours =
+
+        Math.floor(
+
+            (
+                remaining %
+                (1000 * 60 * 60 * 24)
+            )
+
+            /
+
+            (1000 * 60 * 60)
+
+        );
 
 
-    document.getElementById("countDays")
-        .textContent =
-        String(days).padStart(2,"0");
+    const minutes =
+
+        Math.floor(
+
+            (
+                remaining %
+                (1000 * 60 * 60)
+            )
+
+            /
+
+            (1000 * 60)
+
+        );
 
 
-    document.getElementById("countHours")
-        .textContent =
-        String(hours).padStart(2,"0");
+    const seconds =
+
+        Math.floor(
+
+            (
+                remaining %
+                (1000 * 60)
+            )
+
+            /
+
+            1000
+
+        );
 
 
-    document.getElementById("countMinutes")
-        .textContent =
-        String(minutes).padStart(2,"0");
+    return {
 
+        months,
+        days,
+        hours,
+        minutes,
+        seconds,
 
-    document.getElementById("countSeconds")
-        .textContent =
-        String(seconds).padStart(2,"0");
+        finished:false
+
+    };
+
 }
 
 
 /* =========================================
-   AUTO START
+   UPDATE TIMER
 ========================================= */
 
-window.addEventListener("load", () => {
+function updateCountdown(){
+
+    const time =
+        getCountdownDifference();
+
+
+    document.getElementById(
+        "countMonths"
+    ).textContent =
+
+        String(time.months)
+        .padStart(2,"0");
+
+
+    document.getElementById(
+        "countDays"
+    ).textContent =
+
+        String(time.days)
+        .padStart(2,"0");
+
+
+    document.getElementById(
+        "countHours"
+    ).textContent =
+
+        String(time.hours)
+        .padStart(2,"0");
+
+
+    document.getElementById(
+        "countMinutes"
+    ).textContent =
+
+        String(time.minutes)
+        .padStart(2,"0");
+
+
+    document.getElementById(
+        "countSeconds"
+    ).textContent =
+
+        String(time.seconds)
+        .padStart(2,"0");
+
+
+    /* =====================================
+       TIMER FINISHED
+    ===================================== */
+
+    if(time.finished){
+
+        clearInterval(
+            countdownInterval
+        );
+
+
+        if(countdownSound){
+
+            countdownSound.pause();
+
+            countdownSound.currentTime = 0;
+
+        }
+
+
+        countdownScreen.style.transition =
+            "opacity 1.5s ease";
+
+
+        countdownScreen.style.opacity =
+            "0";
+
+
+        setTimeout(() => {
+
+            countdownScreen.style.display =
+                "none";
+
+        },1500);
+
+    }
+
+}
+
+
+/* =========================================
+   START AUTOMATICALLY
+========================================= */
+
+function startCountdown(){
 
     updateCountdown();
 
+
     countdownInterval =
-        setInterval(updateCountdown,1000);
+
+        setInterval(
+
+            updateCountdown,
+
+            1000
+
+        );
 
 
-    /* Sound attempt */
+    /* =====================================
+       SOUND
+    ===================================== */
 
     if(countdownSound){
 
         countdownSound.volume = 0.8;
 
+
+        countdownSound.loop = true;
+
+
         countdownSound.play()
+
             .then(() => {
 
                 console.log(
-                    "Countdown sound started"
+                    "Countdown sound started."
                 );
 
             })
-            .catch(() => {
+
+            .catch(error => {
 
                 console.log(
-                    "Browser blocked autoplay sound"
+                    "Browser blocked autoplay:",
+                    error
                 );
 
             });
+
     }
 
-});
+}
+
+
+/* =========================================
+   PAGE LOAD
+========================================= */
+
+window.addEventListener(
+    "load",
+    () => {
+
+        startCountdown();
+
+    }
+);
