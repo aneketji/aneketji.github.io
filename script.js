@@ -187,12 +187,10 @@ document.addEventListener("mousemove", (e) => {
 });
 /* =========================================
    ANEKET 13 MONTH COUNTDOWN
-   AUTO START
 ========================================= */
 
 const countdownTarget =
     new Date("2027-09-20T00:00:00").getTime();
-
 
 const countdownScreen =
     document.getElementById("countdownScreen");
@@ -205,375 +203,139 @@ let countdownInterval;
 
 
 /* =========================================
-   COUNTDOWN CALCULATION
-========================================= */
-
-function getCountdownDifference(){
-
-    const now = new Date();
-
-    const target =
-        new Date(countdownTarget);
-
-
-    if(
-        now.getTime() >=
-        target.getTime()
-    ){
-
-        return {
-
-            months:0,
-            days:0,
-            hours:0,
-            minutes:0,
-            seconds:0,
-
-            finished:true
-
-        };
-
-    }
-
-
-    let months =
-
-        (target.getFullYear()
-        -
-        now.getFullYear()) * 12
-
-        +
-
-        (target.getMonth()
-        -
-        now.getMonth());
-
-
-    let monthDate =
-        new Date(now);
-
-
-    monthDate.setMonth(
-        monthDate.getMonth() + months
-    );
-
-
-    if(monthDate > target){
-
-        months--;
-
-        monthDate =
-            new Date(now);
-
-        monthDate.setMonth(
-            monthDate.getMonth() + months
-        );
-
-    }
-
-
-    const remaining =
-
-        target.getTime()
-        -
-        monthDate.getTime();
-
-
-    const days =
-
-        Math.floor(
-
-            remaining /
-            (1000 * 60 * 60 * 24)
-
-        );
-
-
-    const hours =
-
-        Math.floor(
-
-            (
-                remaining %
-                (1000 * 60 * 60 * 24)
-            )
-
-            /
-
-            (1000 * 60 * 60)
-
-        );
-
-
-    const minutes =
-
-        Math.floor(
-
-            (
-                remaining %
-                (1000 * 60 * 60)
-            )
-
-            /
-
-            (1000 * 60)
-
-        );
-
-
-    const seconds =
-
-        Math.floor(
-
-            (
-                remaining %
-                (1000 * 60)
-            )
-
-            /
-
-            1000
-
-        );
-
-
-    return {
-
-        months,
-        days,
-        hours,
-        minutes,
-        seconds,
-
-        finished:false
-
-    };
-
-}
-
-
-/* =========================================
-   UPDATE TIMER
+   UPDATE COUNTDOWN
 ========================================= */
 
 function updateCountdown(){
 
-    const time =
-        getCountdownDifference();
+    const now =
+        new Date().getTime();
+
+    const distance =
+        countdownTarget - now;
 
 
-    document.getElementById(
-        "countMonths"
-    ).textContent =
+    if(distance <= 0){
 
-        String(time.months)
-        .padStart(2,"0");
+        document.getElementById("countMonths")
+            .textContent = "00";
 
+        document.getElementById("countDays")
+            .textContent = "00";
 
-    document.getElementById(
-        "countDays"
-    ).textContent =
+        document.getElementById("countHours")
+            .textContent = "00";
 
-        String(time.days)
-        .padStart(2,"0");
+        document.getElementById("countMinutes")
+            .textContent = "00";
 
+        document.getElementById("countSeconds")
+            .textContent = "00";
 
-    document.getElementById(
-        "countHours"
-    ).textContent =
+        clearInterval(countdownInterval);
 
-        String(time.hours)
-        .padStart(2,"0");
+        countdownScreen.style.display =
+            "none";
 
-
-    document.getElementById(
-        "countMinutes"
-    ).textContent =
-
-        String(time.minutes)
-        .padStart(2,"0");
-
-
-    document.getElementById(
-        "countSeconds"
-    ).textContent =
-
-        String(time.seconds)
-        .padStart(2,"0");
-
-
-    /* =====================================
-       TIMER FINISHED
-    ===================================== */
-
-    if(time.finished){
-
-        clearInterval(
-            countdownInterval
-        );
-
-
-        if(countdownSound){
-
-            countdownSound.pause();
-
-            countdownSound.currentTime = 0;
-
-        }
-
-
-        countdownScreen.style.transition =
-            "opacity 1.5s ease";
-
-
-        countdownScreen.style.opacity =
-            "0";
-
-
-        setTimeout(() => {
-
-            countdownScreen.style.display =
-                "none";
-
-        },1500);
-
+        return;
     }
 
+
+    const totalSeconds =
+        Math.floor(distance / 1000);
+
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    const totalMinutes =
+        Math.floor(totalSeconds / 60);
+
+
+    const minutes =
+        totalMinutes % 60;
+
+
+    const totalHours =
+        Math.floor(totalMinutes / 60);
+
+
+    const hours =
+        totalHours % 24;
+
+
+    const totalDays =
+        Math.floor(totalHours / 24);
+
+
+    const months =
+        Math.floor(totalDays / 30);
+
+
+    const days =
+        totalDays % 30;
+
+
+    document.getElementById("countMonths")
+        .textContent =
+        String(months).padStart(2,"0");
+
+
+    document.getElementById("countDays")
+        .textContent =
+        String(days).padStart(2,"0");
+
+
+    document.getElementById("countHours")
+        .textContent =
+        String(hours).padStart(2,"0");
+
+
+    document.getElementById("countMinutes")
+        .textContent =
+        String(minutes).padStart(2,"0");
+
+
+    document.getElementById("countSeconds")
+        .textContent =
+        String(seconds).padStart(2,"0");
 }
 
 
 /* =========================================
-   START AUTOMATICALLY
+   AUTO START
 ========================================= */
 
-function startCountdown(){
+window.addEventListener("load", () => {
 
-    // TIMER IMMEDIATELY START
     updateCountdown();
 
-    countdownInterval = setInterval(
-        updateCountdown,
-        1000
-    );
-
-}
-/* =====================================
-   START BUTTON
-   PHOTO + SOUND
-===================================== */
-
-const startBtn =
-    document.getElementById("startCountdownBtn");
-
-if(startBtn){
-
-    startBtn.addEventListener("click", () => {
-
-        /* Photo reveal */
-
-        countdownScreen.classList.add(
-            "started"
-        );
+    countdownInterval =
+        setInterval(updateCountdown,1000);
 
 
-        /* Sound start */
-
-        if(countdownSound){
-
-            countdownSound.volume = 0.8;
-
-            countdownSound.currentTime = 0;
-
-            countdownSound.play()
-
-                .then(() => {
-
-                    console.log(
-                        "Countdown sound started"
-                    );
-
-                })
-
-                .catch(error => {
-
-                    console.log(
-                        "Sound error:",
-                        error
-                    );
-
-                });
-
-        }
-
-
-        /* Button hide */
-
-        startBtn.style.transition =
-            "opacity .5s ease";
-
-        startBtn.style.opacity = "0";
-
-        startBtn.style.pointerEvents =
-            "none";
-
-
-        setTimeout(() => {
-
-            startBtn.style.display =
-                "none";
-
-        },500);
-
-    });
-
-}
-
-
-    /* =====================================
-       SOUND
-    ===================================== */
+    /* Sound attempt */
 
     if(countdownSound){
 
         countdownSound.volume = 0.8;
 
-
-        countdownSound.loop = true;
-
-
         countdownSound.play()
-
             .then(() => {
 
                 console.log(
-                    "Countdown sound started."
+                    "Countdown sound started"
                 );
 
             })
-
-            .catch(error => {
+            .catch(() => {
 
                 console.log(
-                    "Browser blocked autoplay:",
-                    error
+                    "Browser blocked autoplay sound"
                 );
 
             });
-
     }
 
-}
-
-
-/* =========================================
-   PAGE LOAD
-========================================= */
-
-window.addEventListener(
-    "load",
-    () => {
-
-        startCountdown();
-
-    }
-);
+});
