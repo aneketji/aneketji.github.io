@@ -448,18 +448,85 @@ function updateCountdown(){
 
 function startCountdown(){
 
+    // TIMER IMMEDIATELY START
     updateCountdown();
 
+    countdownInterval = setInterval(
+        updateCountdown,
+        1000
+    );
 
-    countdownInterval =
+}
+/* =====================================
+   START BUTTON
+   PHOTO + SOUND
+===================================== */
 
-        setInterval(
+const startBtn =
+    document.getElementById("startCountdownBtn");
 
-            updateCountdown,
+if(startBtn){
 
-            1000
+    startBtn.addEventListener("click", () => {
 
+        /* Photo reveal */
+
+        countdownScreen.classList.add(
+            "started"
         );
+
+
+        /* Sound start */
+
+        if(countdownSound){
+
+            countdownSound.volume = 0.8;
+
+            countdownSound.currentTime = 0;
+
+            countdownSound.play()
+
+                .then(() => {
+
+                    console.log(
+                        "Countdown sound started"
+                    );
+
+                })
+
+                .catch(error => {
+
+                    console.log(
+                        "Sound error:",
+                        error
+                    );
+
+                });
+
+        }
+
+
+        /* Button hide */
+
+        startBtn.style.transition =
+            "opacity .5s ease";
+
+        startBtn.style.opacity = "0";
+
+        startBtn.style.pointerEvents =
+            "none";
+
+
+        setTimeout(() => {
+
+            startBtn.style.display =
+                "none";
+
+        },500);
+
+    });
+
+}
 
 
     /* =====================================
