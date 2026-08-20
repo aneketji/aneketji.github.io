@@ -185,3 +185,353 @@ document.addEventListener("mousemove", (e) => {
     glow.style.top = e.pageY + "px";
 
 });
+/* =========================================
+   ANEKET 13 MONTH COUNTDOWN
+========================================= */
+
+
+/*
+   TODAY:
+   20 August 2026
+
+   13 MONTHS LATER:
+   20 September 2027
+*/
+
+const countdownTarget =
+    new Date("2027-09-20T00:00:00").getTime();
+
+
+const countdownScreen =
+    document.getElementById("countdownScreen");
+
+const startButton =
+    document.getElementById("startCountdown");
+
+const countdownSound =
+    document.getElementById("countdownSound");
+
+
+let countdownStarted = false;
+
+
+/* =========================================
+   CALCULATE CALENDAR DIFFERENCE
+========================================= */
+
+function getCountdownDifference(){
+
+    const now = new Date();
+
+    const target = new Date(countdownTarget);
+
+    if(now.getTime() >= target.getTime()){
+
+        return {
+
+            months:0,
+            days:0,
+            hours:0,
+            minutes:0,
+            seconds:0,
+            finished:true
+
+        };
+
+    }
+
+
+    let months =
+        (target.getFullYear() - now.getFullYear()) * 12
+        +
+        (target.getMonth() - now.getMonth());
+
+
+    let monthDate =
+        new Date(now);
+
+    monthDate.setMonth(
+        monthDate.getMonth() + months
+    );
+
+
+    if(monthDate > target){
+
+        months--;
+
+        monthDate =
+            new Date(now);
+
+        monthDate.setMonth(
+            monthDate.getMonth() + months
+        );
+
+    }
+
+
+    const remaining =
+        target.getTime() - monthDate.getTime();
+
+
+    const days =
+        Math.floor(
+            remaining /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+    const hours =
+        Math.floor(
+            (
+                remaining %
+                (1000 * 60 * 60 * 24)
+            ) /
+            (1000 * 60 * 60)
+        );
+
+
+    const minutes =
+        Math.floor(
+            (
+                remaining %
+                (1000 * 60 * 60)
+            ) /
+            (1000 * 60)
+        );
+
+
+    const seconds =
+        Math.floor(
+            (
+                remaining %
+                (1000 * 60)
+            ) /
+            1000
+        );
+
+
+    return {
+
+        months,
+        days,
+        hours,
+        minutes,
+        seconds,
+        finished:false
+
+    };
+
+}
+
+
+/* =========================================
+   UPDATE TIMER
+========================================= */
+
+function updateCountdown(){
+
+    const time =
+        getCountdownDifference();
+
+
+    document.getElementById("countMonths")
+        .textContent =
+        String(time.months)
+        .padStart(2,"0");
+
+
+    document.getElementById("countDays")
+        .textContent =
+        String(time.days)
+        .padStart(2,"0");
+
+
+    document.getElementById("countHours")
+        .textContent =
+        String(time.hours)
+        .padStart(2,"0");
+
+
+    document.getElementById("countMinutes")
+        .textContent =
+        String(time.minutes)
+        .padStart(2,"0");
+
+
+    document.getElementById("countSeconds")
+        .textContent =
+        String(time.seconds)
+        .padStart(2,"0");
+
+
+    /* COUNTDOWN FINISHED */
+
+    if(time.finished){
+
+        clearInterval(countdownInterval);
+
+
+        if(countdownSound){
+
+            countdownSound.pause();
+
+            countdownSound.currentTime = 0;
+
+        }
+
+
+        countdownScreen.style.opacity = "0";
+
+
+        setTimeout(() => {
+
+            countdownScreen.style.display =
+                "none";
+
+        },1000);
+
+    }
+
+}
+
+
+/* =========================================
+   SOUND
+========================================= */
+
+function playCountdownSound(){
+
+    if(!countdownStarted){
+
+        return;
+
+    }
+
+
+    if(!countdownSound){
+
+        return;
+
+    }
+
+
+    countdownSound.currentTime = 0;
+
+
+    const playPromise =
+        countdownSound.play();
+
+
+    if(playPromise !== undefined){
+
+        playPromise.catch(error => {
+
+            console.log(
+                "Countdown sound blocked:",
+                error
+            );
+
+        });
+
+    }
+
+}
+
+
+/* =========================================
+   START COUNTDOWN
+========================================= */
+
+startButton.addEventListener(
+    "click",
+    async function(){
+
+        countdownStarted = true;
+
+
+        /*
+           Browser ko audio permission
+           dene ke liye pehle user click.
+        */
+
+        try{
+
+            countdownSound.currentTime = 0;
+
+            await countdownSound.play();
+
+            countdownSound.pause();
+
+            countdownSound.currentTime = 0;
+
+        }
+
+        catch(error){
+
+            console.log(
+                "Audio permission:",
+                error
+            );
+
+        }
+
+
+        startButton.textContent =
+            "COUNTDOWN STARTED";
+
+
+        startButton.disabled = true;
+
+
+        startButton.style.opacity =
+            "0.6";
+
+
+        updateCountdown();
+
+
+        /*
+           Har second timer update
+        */
+
+        countdownInterval =
+            setInterval(
+
+                updateCountdown,
+
+                1000
+
+            );
+
+
+        /*
+           Har second sound
+        */
+
+        soundInterval =
+            setInterval(
+
+                playCountdownSound,
+
+                1000
+
+            );
+
+    }
+);
+
+
+/* =========================================
+   INITIAL TIMER
+========================================= */
+
+updateCountdown();
+
+
+/*
+   Timer variables
+*/
+
+let countdownInterval;
+
+let soundInterval;
