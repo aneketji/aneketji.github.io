@@ -654,7 +654,82 @@ footer{
     letter-spacing:2px;
 
 }
+/* =========================
+   START BUTTON
+========================= */
 
+#startCountdownBtn{
+
+    margin-top:28px;
+
+    padding:12px 35px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:#087cff;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    letter-spacing:2px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 0 12px #087cff,
+        0 0 30px rgba(8,124,255,.6);
+
+    transition:.3s;
+
+}
+
+#startCountdownBtn:hover{
+
+    transform:scale(1.08);
+
+    box-shadow:
+        0 0 20px #087cff,
+        0 0 45px rgba(8,124,255,.8);
+
+}
+
+
+/* Photo initially hidden */
+
+#countdownScreen::before{
+
+    opacity:0;
+
+    transition:
+        opacity 1.2s ease;
+
+}
+
+
+/* Photo appears after START */
+
+#countdownScreen.started::before{
+
+    opacity:1;
+
+}
+
+
+/* Cinematic effect */
+
+#countdownScreen.started .countdown-overlay{
+
+    background:
+        linear-gradient(
+            rgba(120,0,0,.45),
+            rgba(0,0,0,.72)
+        );
+}
 
 /* =========================================
    INSTAGRAM
